@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>DOMCompare Extension</title>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
+		<link rel="stylesheet" href="main.css" />
+	</head>
+	<body>
+		<div class="min-h-screen p-4 bg-stone-100">
+			<!-- Top section (logo, etc) -->
+			<div class="flex items-center justify-between">
+				<!-- Title section -->
+				<div class="flex items-center space-x-3">
+					<div class="p-2 bg-blue-600 rounded-lg">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-code h-6 w-6 text-white"
+						>
+							<polyline points="16 18 22 12 16 6"></polyline>
+							<polyline points="8 6 2 12 8 18"></polyline>
+						</svg>
+					</div>
+					<div>
+						<h1 class="text-2xl font-bold text-gray-900">HTML Diff Viewer</h1>
+						<p class="text-gray-600">Compare original and rendered HTML sources</p>
+					</div>
+				</div>
+
+				<!-- Refresh Export section -->
+				<!-- <div class="flex items-center space-x-2">
+					<button
+						class=dring-offset-background focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border-input bg-background hover:bg-accent hover:text-accent-foreground border h-10 px-4 py-2"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-refresh-cw h-4 w-4 mr-2"
+						>
+							<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+							<path d="M21 3v5h-5"></path>
+							<path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+							<path d="M8 16H3v5"></path></svg
+						>Refresh</button
+					><button
+						class=dring-offset-background focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border-input bg-background hover:bg-accent hover:text-accent-foreground border h-10 px-4 py-2"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-download h-4 w-4 mr-2"
+						>
+							<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+							<polyline points="7 10 12 15 17 10"></polyline>
+							<line x1="12" x2="12" y1="15" y2="3"></line></svg
+						>Export
+					</button>
+				</div> -->
+			</div>
+
+			<!-- Toolbar section -->
+			<div class="rounded-lg border bg-white mt-6">
+				<div class="p-6 pt-6">
+					<div class="flex items-center justify-between">
+						<div class="flex items-center space-x-4">
+							<div class="flex items-center space-x-2">
+								<span class="text-sm font-medium text-gray-700">Layout:</span
+								><button
+									class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border h-9 rounded-md px-3"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-eye h-4 w-4 mr-1"
+									>
+										<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+										<circle cx="12" cy="12" r="3"></circle></svg
+									>Side by Side</button
+								><button
+									class=dring-offset-background focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-file-text h-4 w-4 mr-1"
+									>
+										<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+										<path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+										<path d="M10 9H8"></path>
+										<path d="M16 13H8"></path>
+										<path d="M16 17H8"></path></svg
+									>Stacked
+								</button>
+							</div>
+							<div class="h-4 w-px bg-gray-300"></div>
+							<div class="flex items-center space-x-2">
+								<span class="text-sm font-medium text-gray-700">Show:</span
+								><button
+									class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border h-9 rounded-md px-3"
+								>
+									Original</button
+								><button
+									class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border h-9 rounded-md px-3"
+								>
+									Rendered</button
+								><button
+									class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border h-9 rounded-md px-3"
+								>
+									Diff Only
+								</button>
+							</div>
+						</div>
+						<div
+							class="flex items-center space-x-2 text-sm text-amber-600 bg-amber-50 px-3 py-2 rounded-md border border-amber-200"
+						>
+							<div class="w-2 h-2 bg-amber-400 rounded-full"></div>
+							<span class="font-medium">Tip:</span><span>Rendered HTML may also show page changes made by other Extensions</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Diff sections -->
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+				<!-- Diff window -->
+				<div class="col-span-3">
+					<div class="rounded-lg border bg-white shadow-2xs h-full" data-v0-t="card">
+						<div class="flex flex-col space-y-1.5 p-6">
+							<h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="lucide lucide-code h-5 w-5 mr-2"
+								>
+									<polyline points="16 18 22 12 16 6"></polyline>
+									<polyline points="8 6 2 12 8 18"></polyline></svg
+								>Diff View
+							</h3>
+						</div>
+						<div class="p-6 pt-0">
+							<div id="diff-container" class="bg-white border rounded-lg overflow-auto p-4">Loading...</div>
+						</div>
+					</div>
+				</div>
+				<!-- Original vs rendered sources -->
+				<div class="col-span-3 space-y-4">
+					<div class="rounded-lg border bg-white shadow-2xs" data-v0-t="card">
+						<div class="flex flex-col space-y-1.5 p-6 pb-3">
+							<h3 class="font-semibold tracking-tight flex items-center text-sm">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="lucide lucide-file-text h-4 w-4 mr-2"
+								>
+									<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+									<path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+									<path d="M10 9H8"></path>
+									<path d="M16 13H8"></path>
+									<path d="M16 17H8"></path></svg
+								>Original Source<button
+									class=dring-offset-background focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md ml-auto h-6 w-6 p-0"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-copy h-3 w-3"
+									>
+										<rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+										<path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+									</svg>
+								</button>
+							</h3>
+						</div>
+						<div class="p-6 pt-0">
+							<div class="bg-gray-50 rounded-md p-3 max-h-96 overflow-auto"><pre id="original-source-container"></pre></div>
+						</div>
+					</div>
+					<div class="rounded-lg border bg-white shadow-2xs" data-v0-t="card">
+						<div class="flex flex-col space-y-1.5 p-6 pb-3">
+							<h3 class="font-semibold tracking-tight flex items-center text-sm">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="lucide lucide-eye h-4 w-4 mr-2"
+								>
+									<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+									<circle cx="12" cy="12" r="3"></circle></svg
+								>Rendered Source<button
+									class=dring-offset-background focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md ml-auto h-6 w-6 p-0"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-copy h-3 w-3"
+									>
+										<rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+										<path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+									</svg>
+								</button>
+							</h3>
+						</div>
+						<div class="p-6 pt-0">
+							<div class="bg-gray-50 rounded-md p-3 max-h-96 overflow-auto"><pre id="rendered-source-container"></pre></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="./ui-main.js"></script>
+	</body>
+</html>

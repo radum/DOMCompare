@@ -1,0 +1,34 @@
+{
+  "printWidth": 144,
+  "singleQuote": true,
+  "tabWidth": 4,
+  "useTabs": true,
+  "semi": true,
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "quoteProps": "consistent",
+  "endOfLine": "lf",
+  "singleAttributePerLine": false,
+  "objectWrap": "collapse",
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true,
+  "overrides": [
+    {
+      "files": "{package.json,.browserslistrc,.babelrc,.eslintrc.json,.stylelintrc.json,.prettierrc,.prettierrc.json,tsconfig.json}",
+      "options": {
+        "parser": "json",
+        "singleQuote": false,
+        "tabWidth": 2,
+        "useTabs": false
+      }
+    },
+    {
+      "files": "*.scss",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}
