@@ -1,9 +1,9 @@
-import { browser } from 'wxt/browser';
 import { storage } from '@wxt-dev/storage';
 import { createTwoFilesPatch } from 'diff';
-import { Diff2HtmlUI, defaultDiff2HtmlUIConfig, Diff2HtmlUIConfig } from 'diff2html/lib/ui/js/diff2html-ui-slim.js';
-import * as Diff2Html from 'diff2html';
-import { RENDERED_OBJURL_KEY_PREFIX, DOCTYPE_KEY_PREFIX, UA_KEY_PREFIX } from '@/utils/constants';
+import { defaultDiff2HtmlUIConfig, Diff2HtmlUI, Diff2HtmlUIConfig } from 'diff2html/lib/ui/js/diff2html-ui-slim.js';
+import { browser } from 'wxt/browser';
+// import * as Diff2Html from 'diff2html';
+import { DOCTYPE_KEY_PREFIX, RENDERED_OBJURL_KEY_PREFIX, UA_KEY_PREFIX } from '@/utils/constants';
 
 function draw(diffString: string, config: Diff2HtmlUIConfig, elements: any): void {
 	const diff2htmlUi = new Diff2HtmlUI(elements.structure.diffTarget, diffString, config);
@@ -13,12 +13,12 @@ function draw(diffString: string, config: Diff2HtmlUIConfig, elements: any): voi
 
 export async function initDiff2HTML() {
 	// get tabID from URL parameter
-	var thisURL = new URL(window.location.href);
-	var tabID = thisURL.searchParams.get('tabID');
+	const thisURL = new URL(window.location.href);
+	const tabID = thisURL.searchParams.get('tabID');
 
-	var renderedObjKey = RENDERED_OBJURL_KEY_PREFIX + tabID;
-	var doctypeKey = DOCTYPE_KEY_PREFIX + tabID;
-	var uaKey = UA_KEY_PREFIX + tabID;
+	const renderedObjKey = RENDERED_OBJURL_KEY_PREFIX + tabID;
+	const doctypeKey = DOCTYPE_KEY_PREFIX + tabID;
+	const uaKey = UA_KEY_PREFIX + tabID;
 
 	const renderedSourceURL: string | null = await storage.getItem(`local:${renderedObjKey}`);
 
@@ -44,8 +44,8 @@ function loadDiff2HTML(diffString: string) {
 		{ structure: { diffTarget: document.getElementById('diff-container') } }
 	);
 
-	// const x = Diff2Html.html(diffString, { drawFileList: false, matching: 'words', diffStyle: 'word', outputFormat: 'side-by-side' });
-	// document.getElementById('diff-container').innerHTML = x;
+	// const diffHTML = Diff2Html.html(diffString, { drawFileList: false, matching: 'words', diffStyle: 'word', outputFormat: 'side-by-side' });
+	// document.getElementById('diff-container').innerHTML = diffHTML;
 }
 
 function addSourcesToUI(raw: string, rendered: string) {

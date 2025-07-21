@@ -1,7 +1,7 @@
-import { browser } from 'wxt/browser';
-import { storage } from '@wxt-dev/storage';
+import { DOCTYPE_KEY_PREFIX, RENDERED_OBJURL_KEY_PREFIX, UA_KEY_PREFIX } from '@/utils/constants';
 import { sendMessage } from '@/utils/messaging';
-import { RENDERED_OBJURL_KEY_PREFIX, DOCTYPE_KEY_PREFIX, UA_KEY_PREFIX } from '@/utils/constants';
+import { storage } from '@wxt-dev/storage';
+import { browser } from 'wxt/browser';
 
 function initDOMCompare() {
 	browser.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
