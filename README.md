@@ -42,12 +42,13 @@ pnpm dev
 
 Other extensions building frameworks
 
+- https://github.com/wxt-dev/wxt (current used one)
 - https://github.com/crxjs/chrome-extension-tools
-- https://github.com/wxt-dev/wxt (current use one)
 - https://webext-core.aklinker1.io/messaging/installation
 
 Diffing
 
+- https://github.com/rtfpessoa/diff2html
 - https://github.com/kpdecker/jsdiff
 - https://github.com/google/diff-match-patch
 

@@ -1,16 +1,17 @@
-import { defineConfig } from "wxt";
-import UnoCSS from "unocss/vite";
+import UnoCSS from 'unocss/vite';
+import { defineConfig } from 'wxt';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
 	manifest: {
-		permissions: ["storage"],
-		action: {},
+		permissions: ['storage'],
+		action: {}
 	},
 	vite: () => ({
-		plugins: [UnoCSS()],
+		plugins: [UnoCSS()]
 	}),
 	webExt: {
-		startUrls: ["https://www.example.com"],
+		startUrls: ['https://www.example.com']
 	},
+	modules: ['@wxt-dev/auto-icons']
 });

@@ -7,20 +7,18 @@ export default defineContentScript({
 	runAt: 'document_start',
 
 	main(ctx: ContentScriptContext) {
-		var DOMLoaded = false;
+		let DOMLoaded = false;
 
-		document.addEventListener('DOMContentLoaded', function (event) {
+		document.addEventListener('DOMContentLoaded', () => {
 			DOMLoaded = true;
 		});
 
 		onMessage('GET_HTML', () => {
 			if (DOMLoaded) {
 				// Get rendered DOM as string, turn it into an array, then a blob, then create an object URL of the blob which can be passed to background.js.
-				var outerHTML = document.documentElement.outerHTML;
-
-				var doctypeNode = document.doctype;
-
-				var doctype = '';
+				const outerHTML = document.documentElement.outerHTML;
+				const doctypeNode = document.doctype;
+				let doctype = '';
 
 				if (doctypeNode !== null) {
 					doctype =
@@ -32,15 +30,15 @@ export default defineContentScript({
 						'>';
 				}
 
-				var renderedDOMString = outerHTML;
+				const renderedDOMString = outerHTML;
 
-				var renderedDomArray = [renderedDOMString];
-				var renderedBlob = new Blob(renderedDomArray, { type: 'text/plain' });
-				var renderedObjURL = URL.createObjectURL(renderedBlob);
+				const renderedDomArray = [renderedDOMString];
+				const renderedBlob = new Blob(renderedDomArray, { type: 'text/plain' });
+				const renderedObjURL = URL.createObjectURL(renderedBlob);
 
-				var userAgent = navigator.userAgent;
+				const userAgent = navigator.userAgent;
 
-				return { payload: renderedObjURL, doctype: doctype, userAgent: userAgent };
+				return { payload: renderedObjURL, doctype, userAgent };
 			}
 		});
 	}
