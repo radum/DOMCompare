@@ -105,10 +105,86 @@
 							<div class="h-4 w-px bg-gray-300"></div>
 							<div class="flex items-center space-x-2">
 								<span class="text-sm font-medium text-gray-700">Show:</span>
-								<button id="btn__show-all" class="button is-active">All</button>
-								<button id="btn__show-original" class="button">Original only</button>
-								<button id="btn__show-rendered" class="button">Rendered only</button>
-								<button id="btn__show-diff" class="button">Diff only</button>
+								<button id="btn__show-all" class="button is-active">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-layout-dashboard h-4 w-4 mr-1"
+									>
+										<rect width="7" height="9" x="3" y="3" rx="1" />
+										<rect width="7" height="5" x="14" y="3" rx="1" />
+										<rect width="7" height="9" x="14" y="12" rx="1" />
+										<rect width="7" height="5" x="3" y="16" rx="1" />
+									</svg>
+									All
+								</button>
+								<button id="btn__show-original" class="button">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+									height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-file-code h-4 w-4 mr-1"
+									>
+										<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+										<path d="M14 2v4a2 2 0 0 0 2 2h4" />
+										<path d="m10 13-2 2 2 2" />
+										<path d="m14 13 2 2-2 2" />
+									</svg>
+									Original
+								</button>
+								<button id="btn__show-rendered" class="button">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-file-check h-4 w-4 mr-1"
+									>
+										<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+										<path d="M14 2v4a2 2 0 0 0 2 2h4" />
+										<path d="m9 15 2 2 4-4" />
+									</svg>
+									Rendered
+								</button>
+								<button id="btn__show-diff" class="button">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-git-pull-request-diff h-4 w-4 mr-1"
+									>
+										<circle cx="18" cy="18" r="3" />
+										<circle cx="6" cy="6" r="3" />
+										<path d="M18 11.5V6" />
+										<path d="m21 3-6 6" />
+										<path d="M6 9v12" />
+									</svg>
+									Diff
+								</button>
 							</div>
 						</div>
 						<div

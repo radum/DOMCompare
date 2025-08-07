@@ -40,17 +40,22 @@ pnpm install
 pnpm dev
 ```
 
-Other extensions building frameworks
+Other extension building frameworks
 
 - https://github.com/wxt-dev/wxt (current used one)
 - https://github.com/crxjs/chrome-extension-tools
 - https://webext-core.aklinker1.io/messaging/installation
+- https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/tree/main
 
 Diffing
 
 - https://github.com/rtfpessoa/diff2html
 - https://github.com/kpdecker/jsdiff
 - https://github.com/google/diff-match-patch
+
+Cool modules we could use:
+
+- https://github.com/andreruffert/syntax-highlight-element
 
 Chrome debugger pages:
 

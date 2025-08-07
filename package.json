@@ -15,6 +15,7 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@dprint/formatter": "^0.4.1",
     "@webext-core/messaging": "^2.3.0",
     "@wxt-dev/storage": "^1.1.1",
     "diff": "^8.0.2",
@@ -22,14 +23,14 @@
   },
   "devDependencies": {
     "@radum/eslint-config": "^10.1.0",
-    "@unocss/eslint-plugin": "^66.3.3",
-    "@unocss/postcss": "^66.3.3",
-    "@unocss/preset-wind4": "^66.3.3",
+    "@unocss/eslint-plugin": "^66.4.1",
+    "@unocss/postcss": "^66.4.1",
+    "@unocss/preset-wind4": "^66.4.1",
     "@wxt-dev/auto-icons": "^1.0.2",
-    "eslint": "^9.31.0",
+    "eslint": "^9.32.0",
     "eslint-plugin-format": "^1.0.1",
-    "typescript": "^5.8.3",
-    "unocss": "^66.3.3",
+    "typescript": "^5.9.2",
+    "unocss": "^66.4.1",
     "wxt": "^0.20.7"
   }
 }
