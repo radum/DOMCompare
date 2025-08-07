@@ -1,294 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>DOMCompare Extension</title>
-		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
-		<link rel="stylesheet" href="main.css" />
-	</head>
 
-	<body>
-		<div class="min-h-screen p-4 bg-stone-100">
-			<!-- Top section (logo, etc) -->
-			<div class="flex items-center justify-between">
-				<!-- Title section -->
-				<div class="flex items-center space-x-3">
-					<div class="p-2 bg-blue-600 rounded-lg">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="lucide lucide-code h-6 w-6 text-white"
-						>
-							<polyline points="16 18 22 12 16 6"></polyline>
-							<polyline points="8 6 2 12 8 18"></polyline>
-						</svg>
-					</div>
-					<div>
-						<h1 class="text-2xl font-bold text-gray-900">DOM Compare</h1>
-						<p class="text-gray-600">Compare original and rendered HTML sources.</p>
-					</div>
+<head>
+	<meta charset="UTF-8" />
+	<title>DOMCompare Extension</title>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
+	<link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+	<div class="min-h-screen p-4 bg-stone-100">
+		<!-- Top section (logo, etc) -->
+		<div class="flex items-center justify-between">
+			<!-- Title section -->
+			<div class="flex items-center space-x-3">
+				<div class="p-2 bg-blue-600 rounded-lg">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+						stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+						class="lucide lucide-code h-6 w-6 text-white">
+						<polyline points="16 18 22 12 16 6"></polyline>
+						<polyline points="8 6 2 12 8 18"></polyline>
+					</svg>
+				</div>
+				<div>
+					<h1 class="text-2xl font-bold text-gray-900">DOM Compare</h1>
+					<p class="text-gray-600">Compare original and rendered HTML sources.</p>
 				</div>
 			</div>
+		</div>
 
-			<!-- Info section -->
-			<div class="rounded-lg border border-stone-300 bg-white mt-6">
-				<div class="p-4 pt-4">
-					<div class="flex items-center justify-between">
-						<div class="flex items-center space-x-3">
-							<div class="flex items-center space-x-2">
-								<span class="text-sm font-medium text-gray-700">Analyzing:</span>
-								<div class="flex items-center space-x-2 bg-blue-50 px-3 py-1.5 rounded-md border border-blue-200">
-									<div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-									<code id="analyzing-status-element" class="text-sm text-blue-800 font-mono">Loading ...</code>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Toolbar section -->
-			<div class="rounded-lg border border-stone-300 bg-white mt-6">
-				<div class="p-6 pt-6">
-					<div class="flex items-center justify-between">
-						<div class="flex items-center space-x-4">
-							<div class="flex items-center space-x-2">
-								<span class="text-sm font-medium text-gray-700">Layout:</span>
-								<button id="btn__layout-side-by-side" class="button is-active">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="lucide lucide-eye h-4 w-4 mr-1"
-									>
-										<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-										<circle cx="12" cy="12" r="3"></circle>
-									</svg>
-									Side by Side
-								</button>
-								<button id="btn__layout-stacked" class="button">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="lucide lucide-file-text h-4 w-4 mr-1"
-									>
-										<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-										<path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-										<path d="M10 9H8"></path>
-										<path d="M16 13H8"></path>
-										<path d="M16 17H8"></path>
-									</svg>
-									Stacked
-								</button>
-							</div>
-							<div class="h-4 w-px bg-gray-300"></div>
-							<div class="flex items-center space-x-2">
-								<span class="text-sm font-medium text-gray-700">Show:</span>
-								<button id="btn__show-all" class="button is-active">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="lucide lucide-layout-dashboard h-4 w-4 mr-1"
-									>
-										<rect width="7" height="9" x="3" y="3" rx="1" />
-										<rect width="7" height="5" x="14" y="3" rx="1" />
-										<rect width="7" height="9" x="14" y="12" rx="1" />
-										<rect width="7" height="5" x="3" y="16" rx="1" />
-									</svg>
-									All
-								</button>
-								<button id="btn__show-original" class="button">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-									height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="lucide lucide-file-code h-4 w-4 mr-1"
-									>
-										<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-										<path d="M14 2v4a2 2 0 0 0 2 2h4" />
-										<path d="m10 13-2 2 2 2" />
-										<path d="m14 13 2 2-2 2" />
-									</svg>
-									Original
-								</button>
-								<button id="btn__show-rendered" class="button">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="lucide lucide-file-check h-4 w-4 mr-1"
-									>
-										<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-										<path d="M14 2v4a2 2 0 0 0 2 2h4" />
-										<path d="m9 15 2 2 4-4" />
-									</svg>
-									Rendered
-								</button>
-								<button id="btn__show-diff" class="button">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="lucide lucide-git-pull-request-diff h-4 w-4 mr-1"
-									>
-										<circle cx="18" cy="18" r="3" />
-										<circle cx="6" cy="6" r="3" />
-										<path d="M18 11.5V6" />
-										<path d="m21 3-6 6" />
-										<path d="M6 9v12" />
-									</svg>
-									Diff
-								</button>
-							</div>
-						</div>
-						<div
-							class="flex items-center space-x-2 text-sm text-amber-600 bg-amber-50 px-3 py-2 rounded-md border border-amber-200"
-						>
-							<div class="w-2 h-2 bg-amber-400 rounded-full"></div>
-							<span class="font-medium">Tip:</span><span>Rendered view may also show page changes made by other Extensions</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Diff sections -->
-			<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-				<!-- Diff window -->
-				<div class="col-span-3">
-					<div id="diff-panel" class="rounded-lg border border-stone-300 bg-white shadow-2xs h-full">
-						<div class="flex flex-col space-y-1.5 p-6">
-							<h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="lucide lucide-code h-5 w-5 mr-2"
-								>
-									<polyline points="16 18 22 12 16 6"></polyline>
-									<polyline points="8 6 2 12 8 18"></polyline>
-								</svg>
-								Diff View
-							</h3>
-						</div>
-						<div class="p-6 pt-0">
-							<div id="diff-container" class="bg-white border border-stone-300 rounded-lg overflow-auto p-4">Loading...</div>
-						</div>
-					</div>
-				</div>
-				<!-- Original vs rendered sources -->
-				<div class="col-span-3 space-y-4">
-					<div id="original-source-panel" class="rounded-lg border border-stone-300 bg-white shadow-2xs">
-						<div class="flex flex-col space-y-1.5 p-6 pb-3">
-							<h3 class="font-semibold tracking-tight flex items-center text-sm">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="lucide lucide-file-text h-4 w-4 mr-2"
-								>
-									<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-									<path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-									<path d="M10 9H8"></path>
-									<path d="M16 13H8"></path>
-									<path d="M16 17H8"></path>
-								</svg>
-								Original Source
-							</h3>
-						</div>
-						<div class="p-6 pt-0">
-							<div class="bg-gray-50 rounded-md p-3 max-h-96 overflow-auto">
-								<pre id="original-source-container"></pre>
-							</div>
-						</div>
-					</div>
-					<div id="rendered-source-panel" class="rounded-lg border border-stone-300 bg-white shadow-2xs">
-						<div class="flex flex-col space-y-1.5 p-6 pb-3">
-							<h3 class="font-semibold tracking-tight flex items-center text-sm">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="lucide lucide-eye h-4 w-4 mr-2"
-								>
-									<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-									<circle cx="12" cy="12" r="3"></circle>
-								</svg>
-								Rendered Source
-							</h3>
-						</div>
-						<div class="p-6 pt-0">
-							<div class="bg-gray-50 rounded-md p-3 max-h-96 overflow-auto">
-								<pre id="rendered-source-container"></pre>
+		<!-- Info section -->
+		<div class="rounded-lg border border-stone-300 bg-white mt-6">
+			<div class="p-4 pt-4">
+				<div class="flex items-center justify-between">
+					<div class="flex items-center space-x-3">
+						<div class="flex items-center space-x-2">
+							<span class="text-sm font-medium text-gray-700">Analyzing:</span>
+							<div
+								class="flex items-center space-x-2 bg-blue-50 px-3 py-1.5 rounded-md border border-blue-200">
+								<div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+								<code id="analyzing-status-element"
+									class="text-sm text-blue-800 font-mono">Loading ...</code>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script src="./ui-main.js"></script>
-	</body>
+
+		<!-- Toolbar section -->
+		<div class="rounded-lg border border-stone-300 bg-white mt-6">
+			<div class="p-6 pt-6">
+				<div class="flex items-center justify-between">
+					<div class="flex items-center space-x-4">
+						<div class="flex items-center space-x-2">
+							<button id="btn__layout-side-by-side" class="button is-active">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="lucide lucide-eye h-4 w-4 mr-1">
+									<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+									<circle cx="12" cy="12" r="3"></circle>
+								</svg>
+								Side by Side
+							</button>
+							<button id="btn__layout-stacked" class="button">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="lucide lucide-file-text h-4 w-4 mr-1">
+									<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+									<path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+									<path d="M10 9H8"></path>
+									<path d="M16 13H8"></path>
+									<path d="M16 17H8"></path>
+								</svg>
+								Stacked
+							</button>
+						</div>
+						<div class="h-4 w-px bg-gray-300"></div>
+						<div class="flex items-center space-x-2">
+							<button id="btn__pretty-print" class="button" title="Pretty Print the HTML before diffing.">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="lucide lucide-wand-icon lucide-wand">
+									<path d="M15 4V2" />
+									<path d="M15 16v-2" />
+									<path d="M8 9h2" />
+									<path d="M20 9h2" />
+									<path d="M17.8 11.8 19 13" />
+									<path d="M15 9h.01" />
+									<path d="M17.8 6.2 19 5" />
+									<path d="m3 21 9-9" />
+									<path d="M12.2 6.2 11 5" />
+								</svg>
+							</button>
+						</div>
+						<div class="h-4 w-px bg-gray-300"></div>
+						<div class="flex items-center space-x-2">
+							<button id="btn__show-all" class="button is-active">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="lucide lucide-layout-dashboard h-4 w-4 mr-1">
+									<rect width="7" height="9" x="3" y="3" rx="1" />
+									<rect width="7" height="5" x="14" y="3" rx="1" />
+									<rect width="7" height="9" x="14" y="12" rx="1" />
+									<rect width="7" height="5" x="3" y="16" rx="1" />
+								</svg>
+								All
+							</button>
+							<button id="btn__show-original" class="button">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="lucide lucide-file-code h-4 w-4 mr-1">
+									<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+									<path d="M14 2v4a2 2 0 0 0 2 2h4" />
+									<path d="m10 13-2 2 2 2" />
+									<path d="m14 13 2 2-2 2" />
+								</svg>
+								Original
+							</button>
+							<button id="btn__show-rendered" class="button">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="lucide lucide-file-check h-4 w-4 mr-1">
+									<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+									<path d="M14 2v4a2 2 0 0 0 2 2h4" />
+									<path d="m9 15 2 2 4-4" />
+								</svg>
+								Rendered
+							</button>
+							<button id="btn__show-diff" class="button">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="lucide lucide-git-pull-request-diff h-4 w-4 mr-1">
+									<circle cx="18" cy="18" r="3" />
+									<circle cx="6" cy="6" r="3" />
+									<path d="M18 11.5V6" />
+									<path d="m21 3-6 6" />
+									<path d="M6 9v12" />
+								</svg>
+								Diff
+							</button>
+						</div>
+					</div>
+					<div
+						class="flex items-center space-x-2 text-sm text-amber-600 bg-amber-50 px-3 py-2 rounded-md border border-amber-200">
+						<div class="w-2 h-2 bg-amber-400 rounded-full"></div>
+						<span class="font-medium">Tip:</span><span>Rendered view may also show page changes made by
+							other Extensions</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Diff sections -->
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+			<!-- Diff window -->
+			<div class="col-span-3">
+				<div id="diff-panel" class="rounded-lg border border-stone-300 bg-white shadow-2xs h-full">
+					<div class="flex flex-col space-y-1.5 p-6">
+						<h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" class="lucide lucide-code h-5 w-5 mr-2">
+								<polyline points="16 18 22 12 16 6"></polyline>
+								<polyline points="8 6 2 12 8 18"></polyline>
+							</svg>
+							Diff View
+						</h3>
+					</div>
+					<div class="p-6 pt-0">
+						<div id="diff-container" class="bg-white border border-stone-300 rounded-lg overflow-auto p-4">
+							Loading...</div>
+					</div>
+				</div>
+			</div>
+			<!-- Original vs rendered sources -->
+			<div class="col-span-3 space-y-4">
+				<div id="original-source-panel" class="rounded-lg border border-stone-300 bg-white shadow-2xs">
+					<div class="flex flex-col space-y-1.5 p-6 pb-3">
+						<h3 class="font-semibold tracking-tight flex items-center text-sm">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" class="lucide lucide-file-text h-4 w-4 mr-2">
+								<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+								<path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+								<path d="M10 9H8"></path>
+								<path d="M16 13H8"></path>
+								<path d="M16 17H8"></path>
+							</svg>
+							Original Source
+						</h3>
+					</div>
+					<div class="p-6 pt-0">
+						<div class="bg-gray-50 rounded-md p-3 max-h-96 overflow-auto">
+							<pre id="original-source-container"></pre>
+						</div>
+					</div>
+				</div>
+				<div id="rendered-source-panel" class="rounded-lg border border-stone-300 bg-white shadow-2xs">
+					<div class="flex flex-col space-y-1.5 p-6 pb-3">
+						<h3 class="font-semibold tracking-tight flex items-center text-sm">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" class="lucide lucide-eye h-4 w-4 mr-2">
+								<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+								<circle cx="12" cy="12" r="3"></circle>
+							</svg>
+							Rendered Source
+						</h3>
+					</div>
+					<div class="p-6 pt-0">
+						<div class="bg-gray-50 rounded-md p-3 max-h-96 overflow-auto">
+							<pre id="rendered-source-container"></pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="./ui-main.js"></script>
+</body>
+
 </html>
