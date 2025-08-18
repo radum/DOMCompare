@@ -23,14 +23,14 @@
   },
   "devDependencies": {
     "@radum/eslint-config": "^10.1.0",
-    "@unocss/eslint-plugin": "^66.4.1",
-    "@unocss/postcss": "^66.4.1",
-    "@unocss/preset-wind4": "^66.4.1",
-    "@wxt-dev/auto-icons": "^1.0.2",
-    "eslint": "^9.32.0",
+    "@unocss/eslint-plugin": "^66.4.2",
+    "@unocss/postcss": "^66.4.2",
+    "@unocss/preset-wind4": "^66.4.2",
+    "@wxt-dev/auto-icons": "^1.1.0",
+    "eslint": "^9.33.0",
     "eslint-plugin-format": "^1.0.1",
     "typescript": "^5.9.2",
-    "unocss": "^66.4.1",
-    "wxt": "^0.20.7"
+    "unocss": "^66.4.2",
+    "wxt": "^0.20.8"
   }
 }

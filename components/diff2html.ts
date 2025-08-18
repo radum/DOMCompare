@@ -171,6 +171,9 @@ export async function initDiff2HTML() {
 	const thisURL = new URL(window.location.href);
 	const tabID = thisURL.searchParams.get('tabID');
 
+	console.log('thisURL', thisURL);
+	console.log('tabID', tabID);
+
 	const renderedObjKey = RENDERED_OBJURL_KEY_PREFIX + tabID;
 	// const doctypeKey = DOCTYPE_KEY_PREFIX + tabID;
 	// const uaKey = UA_KEY_PREFIX + tabID;
@@ -226,10 +229,23 @@ function addSourcesToUI(raw: string, rendered: string) {
  * @throws {Error} If the HTTP response status is not OK.
  */
 async function fetchHTMLSource(url: string) {
-	return fetch(url).then((response) => {
+	try {
+		const response = await fetch(url);
 		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
+			const errorMsg = `HTTP error! status: ${response.status} - ${response.statusText}`;
+			showFetchError(errorMsg);
+			throw new Error(errorMsg);
 		}
-		return response.text();
-	});
+		return await response.text();
+	} catch (err: any) {
+		showFetchError(err?.message || String(err));
+		throw err;
+	}
+}
+
+function showFetchError(message: string) {
+	const statusEl = document.getElementById('analyzing-status-element');
+	if (statusEl) {
+		statusEl.textContent = `Error loading HTML: ${message}`;
+	}
 }

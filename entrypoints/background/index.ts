@@ -9,6 +9,9 @@ function initDOMCompare() {
 		const tabPosition = tabs[0].index;
 		const tabID = tabs[0].id;
 
+		console.log('tabPosition', tabPosition);
+		console.log('tabID', tabID);
+
 		const tabHTMLBlob = await sendMessage('GET_HTML', undefined, tabID);
 
 		const renderedObjURL = tabHTMLBlob.payload;

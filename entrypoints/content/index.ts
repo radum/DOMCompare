@@ -1,4 +1,4 @@
-import { ContentScriptContext } from '#imports';
+import type { ContentScriptContext } from '#imports';
 import { onMessage } from '@/utils/messaging';
 
 export default defineContentScript({
@@ -22,12 +22,12 @@ export default defineContentScript({
 
 				if (doctypeNode !== null) {
 					doctype =
-						'<!DOCTYPE ' +
-						doctypeNode.name +
-						(doctypeNode.publicId ? ' PUBLIC "' + doctypeNode.publicId + '"' : '') +
-						(!doctypeNode.publicId && doctypeNode.systemId ? ' SYSTEM' : '') +
-						(doctypeNode.systemId ? ' "' + doctypeNode.systemId + '"' : '') +
-						'>';
+						`<!DOCTYPE ${
+							doctypeNode.name
+						}${doctypeNode.publicId ? ` PUBLIC "${doctypeNode.publicId}"` : ''
+						}${!doctypeNode.publicId && doctypeNode.systemId ? ' SYSTEM' : ''
+						}${doctypeNode.systemId ? ` "${doctypeNode.systemId}"` : ''
+						}>`;
 				}
 
 				const renderedDOMString = outerHTML;
