@@ -1,7 +1,7 @@
 {
   "name": "DOMCompare",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "Compares the rendered DOM of a webpage with the original server-side DOM to highlight differences and detect client-side changes.",
   "scripts": {

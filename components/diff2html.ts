@@ -8,6 +8,15 @@ import { browser } from 'wxt/browser';
 import { RENDERED_OBJURL_KEY_PREFIX } from '@/utils/constants';
 // import * as Diff2Html from 'diff2html';
 
+const ENABLE_DEBUG = false;
+
+function debugLog(...args: any[]) {
+	if (ENABLE_DEBUG) {
+		// eslint-disable-next-line no-console
+		console.log(...args);
+	}
+}
+
 let renderedSourceHTML: string;
 let rawSourceHTML: string;
 
@@ -171,8 +180,8 @@ export async function initDiff2HTML() {
 	const thisURL = new URL(window.location.href);
 	const tabID = thisURL.searchParams.get('tabID');
 
-	console.log('thisURL', thisURL);
-	console.log('tabID', tabID);
+	debugLog('thisURL', thisURL);
+	debugLog('tabID', tabID);
 
 	const renderedObjKey = RENDERED_OBJURL_KEY_PREFIX + tabID;
 	// const doctypeKey = DOCTYPE_KEY_PREFIX + tabID;
@@ -181,7 +190,7 @@ export async function initDiff2HTML() {
 	const renderedSourceURL: string | null = await storage.getItem(`local:${renderedObjKey}`);
 
 	if (!tabID || !renderedSourceURL) {
-		console.error('No tabID or rendered source URL found');
+		showError('No tabID or rendered source URL found. Please analyze a page first.');
 		return;
 	}
 
@@ -233,19 +242,24 @@ async function fetchHTMLSource(url: string) {
 		const response = await fetch(url);
 		if (!response.ok) {
 			const errorMsg = `HTTP error! status: ${response.status} - ${response.statusText}`;
-			showFetchError(errorMsg);
+			showError(errorMsg);
 			throw new Error(errorMsg);
 		}
 		return await response.text();
-	} catch (err: any) {
-		showFetchError(err?.message || String(err));
+	}
+	catch (err: any) {
+		showError(err?.message || String(err));
 		throw err;
 	}
 }
 
-function showFetchError(message: string) {
-	const statusEl = document.getElementById('analyzing-status-element');
-	if (statusEl) {
-		statusEl.textContent = `Error loading HTML: ${message}`;
+function showError(message: string) {
+	const errContainerEl = document.getElementById('error-container');
+	const errTextEl = document.getElementById('error-text');
+	if (errContainerEl) {
+		errContainerEl.classList.remove('hidden');
+	}
+	if (errTextEl) {
+		errTextEl.textContent = message;
 	}
 }
