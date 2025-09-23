@@ -35,7 +35,7 @@ This project is licensed under the MIT License.
 ## Development
 
 ```
-git clone TODO
+git clone https://github.com/radum/DOMCompare.git
 pnpm install
 pnpm dev
 ```
