@@ -52,6 +52,8 @@ Diffing
 - https://github.com/rtfpessoa/diff2html
 - https://github.com/kpdecker/jsdiff
 - https://github.com/google/diff-match-patch
+- https://proxyman.com/tools/diff
+- https://microsoft.github.io/monaco-editor/
 
 Cool modules we could use:
 
@@ -61,3 +63,7 @@ Chrome debugger pages:
 
 - chrome://serviceworker-internals/
 - chrome://extensions/
+
+Docs:
+
+- https://developer.chrome.com/docs/extensions/reference/api/tabs
