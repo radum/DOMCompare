@@ -43,6 +43,7 @@ pnpm dev
 Other extension building frameworks
 
 - https://github.com/wxt-dev/wxt (current used one)
+- https://extension.js.org/docs/welcome
 - https://github.com/crxjs/chrome-extension-tools
 - https://webext-core.aklinker1.io/messaging/installation
 - https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/tree/main
